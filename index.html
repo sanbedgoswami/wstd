@@ -1,9 +1,96 @@
 <!DOCTYPE html>
-<html>
-  <title>Wstd- Checkpoint</title>
-  <head>
-    <body>
-      checkpoint
-    </body>
-  </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entry. &wstd.</title>
+    <link rel="stylesheet" href="styles.css">
+    <div id="statbox" style="display: none;">Blocked.</div>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            color: rgb(4, 4, 4);
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center-align text for better readability */
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .pcode{
+            padding: 20px;
+            font-size: 20px;
+        }
+        .countdown {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 90%; /* Set max-width to keep text readable */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners for a softer look */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+        }
+
+        #timer {
+            font-size: 2em;
+            margin-top: 20px; /* Space between text and timer */
+        }
+
+        @media (max-width: 600px) {
+            #timer {
+                font-size: 1.5em; /* Smaller font size for mobile */
+            }
+            h1 {
+                font-size: 1.5em; /* Smaller header size for mobile */
+            }
+            h2 {
+                font-size: 1em; /* Smaller sub-header size for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        <h1>Welcome.<br>This marks the start of a series of puzzles. <br>Get through these, agent.</h1>
+        <h2 style="margin-top: 0; font-weight: 100; color: rgb(146, 146, 146);">Please enter the passcode provided.<br><span style="color: red;">Use only this browser to complete the full puzzle. Do NOT use guest mode to enter.</span></h2>
+        <input type="password" class="pcode" id="pcodeval">
+        <button class="pcode" style="background-color: green; padding: 10px; border: 0px solid; margin: 10px; border-radius: 5px; color: white;" onclick="getin()">Enter.</button>
+        <h1 style="font-weight: 300; color: rgb(36, 36, 36);">-wstd.</h1>
+    </div>
+    <script>
+            if (localStorage.getItem("blocked")=="yes"){
+                document.body.style.display="none";
+                document.getElementById("statbox").style.display="block";
+            }
+        function getin(){
+            if (pcodeval!="34031143403802"){
+                if(localStorage.getItem("attempts")=="1"){
+                    alert("Sorry. Wrong again. You are now blocked.");
+                    localStorage.setItem("blocked", "yes");
+                    localStorage.removeItem("attempts");
+                    document.body.style.display="none";
+                    document.getElementById("statbox").style.display="block";
+                }
+            }
+            pcodeval = document.getElementById("pcodeval").value;
+            if (pcodeval=="34031143403802"){
+                localStorage.setItem("allowed", "yes");
+                alert("Thanks. You are now in the challenge. You will be redirected shortly.");
+                setTimeout(() => {
+                    window.location="https://sanbedgoswami.github.io/wstd/Untitled%20document%20(7).pdf";
+                }, 3000);
+            }   else{
+                localStorage.setItem("allowed", "no");
+                localStorage.setItem("attempts", "1");
+                alert("Wrong. You will be blocked after next error.");
+            }
+        }
+    </script>
+</body>
 </html>
